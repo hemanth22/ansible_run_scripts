@@ -1,0 +1,19 @@
+2025-03-23 02:36:46,718 p=8529 u=root n=ansible WARNING| [WARNING]: No inventory was parsed, only implicit localhost is available
+
+2025-03-23 02:36:46,747 p=8529 u=root n=ansible WARNING| [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+2025-03-23 02:36:46,940 p=8529 u=root n=ansible INFO| PLAY [diskspace check] **************************************************************************************************************
+2025-03-23 02:36:46,968 p=8529 u=root n=ansible INFO| TASK [Get disk usage of /vagrant] ***************************************************************************************************
+2025-03-23 02:36:48,015 p=8529 u=root n=ansible INFO| ok: [localhost]
+2025-03-23 02:36:48,025 p=8529 u=root n=ansible INFO| TASK [Show disk usage] **************************************************************************************************************
+2025-03-23 02:36:48,068 p=8529 u=root n=ansible INFO| ok: [localhost] => {
+    "msg": "Disk usage of /vagrant is 58%"
+}
+2025-03-23 02:36:48,073 p=8529 u=root n=ansible INFO| TASK [Check if /vagrant is almost full] *********************************************************************************************
+2025-03-23 02:36:48,189 p=8529 u=root n=ansible INFO| skipping: [localhost]
+2025-03-23 02:36:48,194 p=8529 u=root n=ansible INFO| TASK [Check if /vagrant is healthy] *************************************************************************************************
+2025-03-23 02:36:48,308 p=8529 u=root n=ansible INFO| ok: [localhost] => {
+    "msg": "/vagrant mount is healthy."
+}
+2025-03-23 02:36:48,313 p=8529 u=root n=ansible INFO| PLAY RECAP **************************************************************************************************************************
+2025-03-23 02:36:48,313 p=8529 u=root n=ansible INFO| localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
