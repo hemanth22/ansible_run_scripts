@@ -1,0 +1,21 @@
+- name: Try-Catch Equivalent in Ansible
+  hosts: localhost
+  tasks:
+    - block:
+        - name: Simulating a failure
+          command: /bin/false
+
+        - name: This won't run due to failure above
+          debug:
+            msg: "This will be skipped"
+
+      rescue:
+        - name: Handling the failure
+          debug:
+            msg: "An error occurred but was caught!"
+
+      always:
+        - name: This will always run
+          debug:
+            msg: "Cleanup or logging task"
+

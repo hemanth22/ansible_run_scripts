@@ -1,0 +1,20 @@
+# playbook.yml
+- name: Find filename based on commitversion
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - vars.yaml
+  vars:
+    filename: "abc-{{ commitversion }}-filename.log"
+
+  tasks:
+    - name: Find file matching the dynamically generated filename
+      find:
+        paths: "/var/log"  # Change this path as needed
+        patterns: "{{ filename }}"
+      register: found_files
+
+    - name: Display found files
+      debug:
+        msg: "{{ found_files.files | map(attribute='path') | list }}"
+
