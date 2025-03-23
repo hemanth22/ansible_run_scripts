@@ -1,14 +1,19 @@
----
-- name: diskspace verification
+- name: diskspace check
   hosts: localhost
   become: true
   gather_facts: false
-
   tasks:
-    - name: Verify diskspace
-      ansible.builtin.shell: df -hT
-      register: disk_usage_output
+    - name: Get disk usage of /
+      ansible.builtin.shell: "df -h / | awk 'NR==2 {print $5}' | sed 's/%//'"
+      register: disk_usage
+      changed_when: false
 
-    - name: Diskspace usage
-      ansible.builtin.debug:
-        msg: "{{ disk_usage_output.stdout_lines }}"
+    - name: Diskspace is almost full
+      debug:
+        msg: "/ mount is almost full!"
+      when: disk_usage.stdout | int > 70
+
+    - name: Diskspace is healthy
+      debug:
+        msg: "/ mount is healthy."
+      when: disk_usage.stdout | int < 70

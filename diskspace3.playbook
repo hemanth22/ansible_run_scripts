@@ -1,0 +1,19 @@
+- name: diskspace check
+  hosts: localhost
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Get disk usage of /vagrant
+      ansible.builtin.shell: "df -h /vagrant | awk 'NR==2 {print $5}' | sed 's/%//'"
+      register: disk_usage
+      changed_when: false
+
+    - name: Check if /vagrant is almost full
+      debug:
+        msg: "/vagrant mount is almost full!"
+      when: disk_usage.stdout | int > 80
+
+    - name: Check if /vagrant is healthy
+      debug:
+        msg: "/vagrant mount is healthy."
+      when: disk_usage.stdout | int < 70
